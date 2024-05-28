@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="idcard.css">
+    <title>Carousel</title>
+</head>
+
+<body>
+    <div id="card">
+        <h2>SQI COLLEGE OF ICT</h2>
+        <hr>
+        <div id="image">
+            <!-- <div>
+                <img id="idimage" src="mateenah.jpg" alt="">
+            </div>
+            <div>
+                <div id="idname"> NAME :NAna Maryam</div>
+                <div id="idage"> AGE: 20</div>
+                <div id="idnation"> NATIONALITY: Ghananain</div>
+                <div id="idssn"> SSN: 123423</div> -->
+        </div>
+    </div>
+    </div>
+    <div id="btn">
+        <button id="btn1" onclick="next()">NEXT</button>
+        <button id="btn2" onclick="previous()"> Previous</button>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    let identity = document.getElementById("identity")
+
+    let ids = [
+        {
+            image: 'https://media.istockphoto.com/id/835151786/photo/portrait-of-beautiful-african-american-woman-in-straw-hat-looking-at-camera-isolated-on-white.jpg?s=612x612&w=0&k=20&c=F_iFW9GTUkoQpGVe7psNB-FUjaPLoR9kYYnaytn6hAw=',
+            name: ' Aliyah Jawaheer',
+            age: ' 19',
+            nationality: ' Ghananian',
+            SSN: ' 456789'
+        },
+        {
+            image: 'https://media.istockphoto.com/id/1389465862/photo/shot-of-a-young-businessman-working-on-his-laptop-at-his-desk.jpg?s=612x612&w=0&k=20&c=YZEk5hp1E8cv8y-xXLumH4H5zIVyyf4UdETZvsuH8Vk=',
+            name: 'NAME: Awwal Olawale',
+            age: ' AGE: 20',
+            nationality: ' NATIONALITY: Nigerian',
+            SSN: ' SSN: 456789'
+        },
+        {
+            image: 'https://media.istockphoto.com/id/1348209421/photo/smiling-business-woman-working-with-laptop-while-looking-at-camera-in-modern-startup-office.jpg?s=612x612&w=0&k=20&c=-YOjhdxdWLjflmpzPyUjtYL80zhbJYqSANk6hhDPXL0=',
+            name: 'NAME: Hafsoh Kazeem',
+            age: ' AGE: 18',
+            nationality: ' NATIONALITY: Zambian',
+            SSN: ' SSN: 456789'
+        },
+        {
+            image: 'https://media.istockphoto.com/id/1423661289/photo/feeling-good-in-blue.jpg?s=612x612&w=0&k=20&c=BfoiwHPIOXrsq2wq5aJKkA3DQNv9yCDReU4TuQTbG_0=',
+            name: 'NAME: Azeezah Desire',
+            age: ' AGE: 21',
+            nationality: ' NATIONALITY: Nigerian',
+            SSN: ' SSN: 456789'
+        },
+        {
+            image: 'https://media.istockphoto.com/id/1443305526/photo/young-smiling-man-in-headphones-typing-on-laptop-keyboard.jpg?s=612x612&w=0&k=20&c=-JzAS5fjTvxyNRkYoaIlpoLfmt5AEIOcwpt6lk0D4TA=',
+            name: 'NAME: Bilal Mobolaji',
+            age: 'AGE: 25',
+            nationality: ' NATIONALITY: Nigerian',
+            SSN: ' SSN: 456789'
+        },
+        {
+            image: 'https://media.istockphoto.com/id/1327495437/photo/excited-woman-wearing-rainbow-cardigan.jpg?s=612x612&w=0&k=20&c=pfXCnVVtCMgV6y13pVVEa9WbhrFV4W1EN5uIqYdQgwE=',
+            name: 'NAME: Mateenah Morenike',
+            age: ' AGE: 28',
+            nationality: '  NATIONALITY: Nigerian',
+            SSN: ' SSN: 456789'
+        },
+    ]
+
+    function display() {
+        image.innerHTML = `<div>
+                <img id="idimage" src="${ids[index].image}" alt="">
+            </div>
+            <div>
+                <div id="idname"> NAME :${ids[index].name} </div>
+                <div id="idage"> AGE: ${ids[index].age}</div>
+                <div id="idnation"> NATIONALITY: ${ids[index].nationality}</div>
+                <div id="idssn"> SSN: ${ids[index].SSN}</div>
+            </div> `
+
+    }
+
+    let index = 0
+    display()
+
+
+    function next() {
+        if (index === ids.length - 1) {
+            index = 0
+            display()
+        } else {
+            index++
+            display()
+        }
+
+
+    }
+    function previous() {
+        if (index === 0) {
+            index = ids.length - 1
+            display()
+        } else {
+            index--
+            display()
+        }
+
+    }
+
+
+
+
+</script>
