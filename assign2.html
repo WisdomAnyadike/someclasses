@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <section>
+        <label for="provider"> provider </label>
+        <select name=""  id="provider">
+            <option value=""> choose provider </option>
+            <option value="mtn"> mtn </option>
+            <option value="glo"> glo  </option>
+            <option value="airtel"> airtel </option>
+            <option value="9mobile"> 9mobile </option>   
+        </select>
+
+    </section>
+    <section>
+        <label for="amount"> amount </label>
+        <select name="" id="amount">
+            <option value=""> choose amount </option>
+            <option value="1000"> 1000 </option>
+            <option value="500"> 500 </option>
+            <option value="200"> 200 </option>
+            <option value="100"> 100 </option>   
+        </select>
+
+    </section>
+
+    <button onclick="generate()">generate</button>
+
+    <h1 >PIN : <span id="pin2"> </span> </h1>
+
+    <h1 ><input id="pin2" /> <button>load</button> </h1>
+
+    <h1> Balance :  </h1>
+
+
+
+
+</body>
+
+</html>
+<script>
+
+let $10RandomNumbers = String(Math.floor(Math.random() * 10000000000)) 
+
+console.log($10RandomNumbers.length);
+
+
+
+function generate(params) {
+    let pin = ''
+for (let index = 0; index < 15 ; index++) {
+let num = Math.floor(Math.random() * 10)
+   pin = pin +  num
+    
+}
+ 
+pin2.innerHTML = pin
+}
+
+
+console.log(pin.length);
+
+
+
+</script>

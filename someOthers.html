@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="input" type="text">
+    <button onclick="increase()"> + </button>
+    <button onclick="decrease()"> - </button>
+
+
+    <input id="input1" type="text">
+    <button onclick="increase2()"> + </button>
+    <button onclick="decrease2()"> - </button>
+</body>
+
+</html>
+<script>
+
+    let count = 0
+    console.log(`countOutside : ${count}`);
+
+    let whatsgoodInterval = setInterval(() => {
+
+        count++
+        if (count == 5) {
+            clearInterval(whatsgoodInterval)
+        }
+
+        console.log(`countInside : ${count}`);
+
+    }, 5000)
+
+
+    let num
+
+    function increase() {
+        num = input.value
+        num++
+        input.value = num
+    }
+
+    function decrease(params) {
+        num = input.value
+        num--
+        input.value = num
+
+    }
+
+
+    let num2
+
+    function increase2() {
+        let increment = setInterval(() => {
+            num2 = input1.value
+            num2++
+            input1.value = num2
+
+            if (num2 >= 20) {
+                clearInterval(increment)
+                alert('time up')
+            }
+
+
+        }, 1000);
+    }
+
+
+
+
+
+    // let interval = setInterval(() => {
+
+    // }, interval);
+
+
+    // clearInterval(interval)
+
+
+</script>
