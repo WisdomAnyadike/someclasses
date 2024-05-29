@@ -5,18 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
 </head>
 
 <body>
 
     <section>
         <label for="provider"> provider </label>
-        <select name=""  id="provider">
+        <select name="" id="provider">
             <option value=""> choose provider </option>
             <option value="mtn"> mtn </option>
-            <option value="glo"> glo  </option>
+            <option value="glo"> glo </option>
             <option value="airtel"> airtel </option>
-            <option value="9mobile"> 9mobile </option>   
+            <option value="9mobile"> 9mobile </option>
         </select>
 
     </section>
@@ -27,47 +35,128 @@
             <option value="1000"> 1000 </option>
             <option value="500"> 500 </option>
             <option value="200"> 200 </option>
-            <option value="100"> 100 </option>   
+            <option value="100"> 100 </option>
         </select>
 
     </section>
 
     <button onclick="generate()">generate</button>
 
-    <h1 >PIN : <span id="pin2"> </span> </h1>
+    <h1>PIN : <span id="pin2"> </span> </h1>
 
-    <h1 ><input id="pin2" /> <button>load</button> </h1>
+    <h1><input id="loader" /> <button onclick="load()">load</button> </h1>
 
-    <h1> Balance :  </h1>
+    <h1> Balance : </h1>
+
+
+    <table id="table">
+        <thead id="thead">
+            <th> provider </th>
+            <th> amount </th>
+            <th> pin </th>
+            <th> used </th>
+        </thead>
+        <tbody id="tbody">
+            <tr>
+
+
+            </tr>
 
 
 
+        </tbody>
+    </table>
 
 </body>
 
 </html>
 <script>
 
-let $10RandomNumbers = String(Math.floor(Math.random() * 10000000000)) 
+    let rechargeCards =  JSON.parse(localStorage.getItem('rechargeCards')) || []
 
-console.log($10RandomNumbers.length);
+    console.log(rechargeCards);
 
+    function generate(params) {
+        let pin = ''
+        for (let index = 0; index < 15; index++) {
+            let num = Math.floor(Math.random() * 10)
+            pin = pin + num
 
-
-function generate(params) {
-    let pin = ''
-for (let index = 0; index < 15 ; index++) {
-let num = Math.floor(Math.random() * 10)
-   pin = pin +  num
-    
-}
- 
-pin2.innerHTML = pin
-}
+        }
 
 
-console.log(pin.length);
+        if (provider.value === '' || amount.value === '') {
+            alert('all fields are mandatory')
 
+        } else {
+            pin2.innerHTML = pin
+            let pinObject = {
+                provider: provider.value,
+                amount: amount.value,
+                pin: pin,
+                used: false
+            }
+
+            rechargeCards.push(pinObject)
+            console.log(rechargeCards)
+            localStorage.setItem('rechargeCards' , JSON.stringify(rechargeCards))
+            display()
+
+
+
+        }
+
+
+
+
+    }
+
+
+    function load() {
+        let recharger = loader.value
+        let thePin = recharger.slice(5, 20)
+        console.log(thePin);
+
+        let obj = rechargeCards.find((rechargecard) => rechargecard.pin === thePin)
+
+        console.log(obj);
+
+        if (obj === undefined) {
+            alert('invalid pin')
+        }
+        else if (obj && obj.used === true) {
+            alert('this card has been used by you')
+        }
+        else if (recharger.startsWith('*310*') && recharger.endsWith('#') && obj) {
+            alert(`you have successfully recharged ${obj.provider} of ${obj.amount}`)
+            obj.used = true
+            localStorage.setItem('rechargeCards' , JSON.stringify(rechargeCards))
+            display()
+
+        } else {
+            alert('invalid format')
+        }
+
+    }
+
+
+    function display() {
+        tbody.innerHTML = ''
+        rechargeCards.forEach((rechargecard) => {
+            tbody.innerHTML += `
+                  <tr>
+                    <td> ${rechargecard.provider} </td> 
+                    <td> ${rechargecard.amount}</td> 
+                    <td> ${rechargecard.pin} </td> 
+                    <td> ${rechargecard.used}</td> 
+                    </tr>
+                `
+
+
+        })
+    }
+
+display()
 
 
 </script>
