@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input class="hello" type="file" id="picPicker" onchange="pickPicture(event)">
+    <img id="image" alt="">
+    <button id="button1"> click me </button>
+
+    <div id="one">
+        <input id="input" type="text"> <button onclick="add()"> add </button>
+    </div>
+    <div id="two">
+        <input id="input2" type="text"> <button onclick="editText()"> edit </button>
+    </div>
+
+
+    <div id="texts">
+
+    </div>
+
+    <input id="searchInput" type="search" oninput="searcher()">
+    <div id="showProducts">
+
+    </div>
+
+</body>
+
+</html>
+<script>
+
+    function pickPicture(e) {
+        // console.log(e.srcElement);
+        // let picker = document.getElementById('picPicker')
+        let theFile = e.target.files[0]
+        let reader = new FileReader()
+
+        reader.readAsDataURL(theFile)
+
+        reader.addEventListener('load', (e) => {
+            console.log(e.target.result);
+            image.style.width = '100px'
+            image.style.height = '100px'
+            image.src = e.target.result
+        })
+
+
+    }
+
+
+    button1.addEventListener('click', () => {
+        console.log('hello');
+    })
+
+
+    let textsArr = []
+    let index
+
+    function add(params) {
+        textsArr.push(input.value)
+        display()
+        input.value = ''
+    }
+
+
+    function display() {
+        texts.innerHTML = ''
+        textsArr.forEach((text, i) => {
+            texts.innerHTML += `<p>${text}  <button onclick="del(${i})"> x </button>  <button onclick="edit(${i})"> edit </button> </p>`
+        })
+    }
+
+    function del(i) {
+        textsArr.splice(i, 1)
+        display()
+    }
+
+    two.style.display = 'none'
+
+    function edit(i) {
+        index = i
+        input2.value = textsArr[i]
+        one.style.display = 'none'
+        two.style.display = 'block'
+    }
+
+
+    function editText() {
+        textsArr.splice(index, 1, input2.value)
+        one.style.display = 'block'
+        two.style.display = 'none'
+        display()
+        input2.value = ''
+    }
+
+
+    let database = ['rice', 'beans', 'potato', 'tomatoes', 'curry']
+
+   display(database)
+
+   
+
+    function searcher() {
+        let filteredProducts = database.filter((product) => { return product.startsWith(searchInput.value) })
+        console.log(filteredProducts);
+        showProducts.innerHTML = ''
+        if (filteredProducts.length == 0) {
+            showProducts.innerHTML = 'product does not exist'
+        } else {
+          display(filteredProducts)
+        }
+
+    }
+
+
+    function display(params) {
+        params.forEach((product) => {
+        showProducts.innerHTML += `<p>${product} </p>`
+
+    })
+    }
+
+
+  function add( first , second) {
+     return first + second
+  }
+
+  console.log( add(5 , 7));
+  console.log(add(24 , 4));
+ 
+  
+
+</script>

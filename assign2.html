@@ -46,7 +46,7 @@
 
     <h1><input id="loader" /> <button onclick="load()">load</button> </h1>
 
-    <h1> Balance : </h1>
+    <h1> Balance : <span id="thebal"> </span> </h1>
 
 
     <table id="table">
@@ -72,7 +72,9 @@
 </html>
 <script>
 
-    let rechargeCards =  JSON.parse(localStorage.getItem('rechargeCards')) || []
+    let rechargeCards = JSON.parse(localStorage.getItem('rechargeCards')) || []
+    let balance =  Number(localStorage.getItem('mybal')) || 0
+    thebal.innerHTML = balance
 
     console.log(rechargeCards);
 
@@ -99,7 +101,7 @@
 
             rechargeCards.push(pinObject)
             console.log(rechargeCards)
-            localStorage.setItem('rechargeCards' , JSON.stringify(rechargeCards))
+            localStorage.setItem('rechargeCards', JSON.stringify(rechargeCards))
             display()
 
 
@@ -130,7 +132,12 @@
         else if (recharger.startsWith('*310*') && recharger.endsWith('#') && obj) {
             alert(`you have successfully recharged ${obj.provider} of ${obj.amount}`)
             obj.used = true
-            localStorage.setItem('rechargeCards' , JSON.stringify(rechargeCards))
+            localStorage.setItem('rechargeCards', JSON.stringify(rechargeCards))
+
+            balance = balance + Number(obj.amount)
+            localStorage.setItem('mybal', balance)
+            thebal.innerHTML = balance
+
             display()
 
         } else {
@@ -156,7 +163,23 @@
         })
     }
 
-display()
+    display()
 
+    function showBalance(amount) {
+        balance = balance + Number(amount)
+        localStorage.setItem('mybal', Number(balance))
+        thebal.innerHTML = balance
+    }
+
+
+
+    // function cal(a, b) {
+    //     return a + b
+    // }
+
+
+    // cal(4, 5)
+
+// localStorage.removeItem('mybal')
 
 </script>
