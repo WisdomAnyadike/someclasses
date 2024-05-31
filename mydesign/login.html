@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="email">
+    <input type="text" id="password">
+    <button onclick="login()"> login </button>
+
+</body>
+
+</html>
+<script>
+
+    let database = JSON.parse(localStorage.getItem('DATABASE'))
+    console.log(database);
+
+    function login() {
+        if (email.value === '' || password.value === '') {
+            alert('all fields are mandatory')
+        } else if (database.find((userDetails) => userDetails.email === email.value && userDetails.password !== password.value)) {
+            alert('incorrect password or email')
+        } else if (database.find((userDetails) => userDetails.email === email.value && userDetails.password === password.value)) {
+            alert('login sucessful')
+        } else {
+            alert('user not found , sign up')
+            window.location.href = 'signup.html'
+        }
+
+
+
+
+    }
+</script>

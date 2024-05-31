@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <style>
+        table {
+            margin-top: 40px;
+        }
+
+
+        table,
+        td,
+        th,
+        thead {
+
+            padding: 20px;
+            border: 2px solid black;
+            border-collapse: collapse;
+
+        }
+
+
+        .spinner {
+            --t: 2500ms;
+            --animation: rotate var(--t) linear infinite;
+            --animation2: scale var(--t) linear infinite alternate;
+            position: relative;
+            width: 10rem;
+            height: 10rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: var(--animation), var(--animation2);
+        }
+
+        .spinner::before,
+        .spinner::after {
+            content: '';
+            position: absolute;
+        }
+
+        .spinner::before {
+            inset: 0;
+            border: 3px solid turquoise;
+            border-radius: 50%;
+            mask-image: conic-gradient(transparent 10%, black);
+            animation: borderScale var(--t) linear infinite alternate;
+        }
+
+        .spinner::after {
+            --r: 45deg;
+            --scale: 2;
+            width: 20%;
+            height: 20%;
+            background:
+                radial-gradient(circle at 30% 35%, white 3px, transparent 0),
+                radial-gradient(circle at 70% 35%, white 3px, transparent 0),
+                radial-gradient(circle at top center, white 6px, transparent 0),
+                turquoise;
+            background-position: 0 0, 0 0, 0 1.25rem;
+            top: 0;
+            translate: 0 -50%;
+            rotate: 45deg;
+            animation: var(--animation) reverse, var(--animation2);
+            border-radius: 20%;
+        }
+
+        @keyframes rotate {
+            to {
+                rotate: calc(360deg + var(--r, 0deg));
+            }
+        }
+
+        @keyframes scale {
+            to {
+                scale: var(--scale, 0.5);
+            }
+        }
+
+        @keyframes borderScale {
+            to {
+                border: 6px solid turquoise;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <section>
+            <label for="name1"> Name </label>
+            <input type="text" id="name1">
+        </section>
+
+        <section>
+            <label for="email"> Email </label>
+            <input type="text" id="email">
+        </section>
+
+        <section>
+            <label for="password"> Password </label>
+            <input type="text" id="password">
+        </section>
+
+
+        <section>
+            <label for="confirmpassword"> confirm password </label>
+            <input type="text" id="confirmpassword">
+        </section>
+
+        <label for="check"> agree to terms</label>
+        <input type="checkbox" id="check">
+
+
+        <button type="button" class="btn btn-danger" id="sign" onclick="signup()"> sign up </button>
+
+
+
+
+
+
+    </form>
+
+
+    <table>
+        <thead>
+            <th>
+                name
+            </th>
+            <th>
+                email
+            </th>
+            <th>
+                password
+            </th>
+            <th>
+                terms
+            </th>
+        </thead>
+        <tbody id="tbody">
+
+
+        </tbody>
+
+
+    </table>
+
+
+</body>
+
+</html>
+<script>
+
+    let dataBase = JSON.parse(localStorage.getItem('DATABASE')) || []
+
+    function signup() {
+
+        if (name1.value === '' || email.value === '' || password.value === '' || confirmpassword.value === '') {
+            alert('all fields are mandatory')
+        } else if (dataBase.find((userDetails) => userDetails.email === email.value)) {
+            alert('user already exists')
+        } else if (password.value !== confirmpassword.value) {
+            alert('passwords do not match')
+        } else if (password.value.length < 8) {
+            alert('passwords must be up to 8 characters')
+        } else if (check.checked === false) {
+            alert('agree to terms & conditions')
+        } else {
+            sign.innerHTML = `<div style="width:20px; height:20px;" class="spinner"></div>`
+
+            setTimeout(() => {
+                let userDetails = {
+                    name: name1.value,
+                    email: email.value,
+                    password: password.value,
+                    terms: check.checked
+                }
+
+                dataBase.push(userDetails)
+                localStorage.setItem('DATABASE', JSON.stringify(dataBase))
+                display()
+                console.log(dataBase);
+                sign.innerHTML = 'signup'
+                alert('sign up successful')
+            }, 5000);
+
+        }
+
+
+    }
+
+
+    function display() {
+        tbody.innerHTML = ''
+        dataBase.forEach((userDetails) => {
+            tbody.innerHTML += `<tr> 
+                 <td>${userDetails.name} </td>
+                 <td>${userDetails.email} </td>
+                 <td>${userDetails.password.replace(userDetails.password, '*'.repeat(userDetails.password.length))} </td>
+                 <td> ${userDetails.terms}</td>
+                </tr>`
+        })
+
+    }
+
+    display()
+
+
+// input type text/search - .value
+// input type file - .files 
+// input type checkbox - .checked
+// image - .src
+//  html tag ! input/image/video/audio - .innerHTML || .textContent || .innerText
+// event - event.target || event.srcElement
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
