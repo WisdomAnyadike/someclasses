@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <img id="img" class="image">
+
+        <input type="file" id="thefile" onchange="uploadPic(event)">
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    let dataBase = JSON.parse(localStorage.getItem('DATABASE'))
+    let loggedInUserIndex = localStorage.getItem('loggedInUserIndex')
+    let loggedInUser = dataBase[loggedInUserIndex]
+
+
+
+  
+
+    if (loggedInUser) {
+        loggedInUser.photo ?  img.src = loggedInUser.photo    :   img.src = 'hafsoh.jpg'
+    } else {
+        alert('youre not authorised to view this page, log in!')
+        window.location.href = 'login.html'
+    }
+
+    let obj = {
+        name: 'hey',
+        class: 'js2'
+    }
+
+
+    obj.runner = 'david'
+
+    console.log(obj);
+
+
+    function uploadPic(e) {
+        let file = e.target.files[0]
+        let reader = new FileReader()
+        console.log(file);
+
+        if (file) {
+            reader.readAsDataURL(file)
+        }
+
+        reader.addEventListener('load', (e) => {
+            let data = e.target.result
+            img.src = data 
+            loggedInUser.photo = e.target.result
+            localStorage.setItem('DATABASE', JSON.stringify(dataBase))
+        })
+
+    }
+
+
+
+
+
+</script>

@@ -27,6 +27,10 @@
             alert('incorrect password or email')
         } else if (database.find((userDetails) => userDetails.email === email.value && userDetails.password === password.value)) {
             alert('login sucessful')
+            let loggedInUserIndex = database.findIndex((userDetails) => userDetails.email === email.value && userDetails.password === password.value)
+            localStorage.setItem('loggedInUserIndex' , loggedInUserIndex)
+            window.location.href = 'Dashboard.html'
+
         } else {
             alert('user not found , sign up')
             window.location.href = 'signup.html'
