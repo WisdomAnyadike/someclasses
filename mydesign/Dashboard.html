@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        section {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,6 +21,41 @@
 
 
     </div>
+
+    <form>
+        <section>
+            <label for="title"> Blog Title </label>
+            <input type="text" id="title">
+        </section>
+
+        <section>
+            <img width="200px" height="200px" src="" id="img" alt="">
+            <input type="file"  id="picture" onchange="choosePhoto(event)">
+        </section>
+
+        <section>
+            <label for="des"> description </label>
+            <textarea type="text" id="des"> </textarea>
+        </section>
+
+
+
+
+        <button type="button" class="btn btn-danger" id="sign" onclick="postBlog()"> post </button>
+
+
+
+
+
+
+    </form>
+
+    <div id="preview">
+
+    </div>
+
+
+
 
 </body>
 
@@ -31,15 +72,68 @@
         window.location.href = 'login.html'
     }
 
+    function choosePhoto(e) {
+        
+        let file = e.srcElement.files[0]
+        console.log(file);
+        let reader = new FileReader()
+
+        if (file) {
+            reader.readAsDataURL(file)
+        }
+
+        reader.addEventListener('load', (e) => {
+            let data = e.target.result
+            img.src = data
+        })
+
+    }
+
 
     function logOut() {
         alert('logged out successfully')
         localStorage.removeItem('loggedInUserIndex')
         window.location.href = 'signup.html'
 
-        
+
     }
 
 
+    let posts =  JSON.parse(localStorage.getItem('DATABASE'))[loggedInUserIndex].blogPosts || []
+
+    function postBlog() {
+        if (title.value == '' || des.value == '' || img.src == '') {
+            alert("all fields are mandatory")
+        } else {
+            let blogPost = {
+                title: title.value,
+                image: img.src,
+                description: des.value
+            }
+
+            posts.push(blogPost)
+            loggedInUser.blogPosts = posts
+            localStorage.setItem('DATABASE' , JSON.stringify(dataBase))
+            display()
+            console.log(posts);
+        }
+
+    }
+
+
+    function display() {
+        preview.innerHTML = ''
+        posts.forEach((post) => {
+            preview.innerHTML += `<div>
+    <p> ${post.title} </p>
+    <img width="100px" height="100px" src="${post.image}" />
+    <p>${post.description} </p>
+    </div>`
+
+        })
+
+    }
+
+    display()
 
 </script>
