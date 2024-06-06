@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input id="input" type="text"> <button onclick="add()"> add </button>
+  <p id="p"> </p>
+
+  <button onclick="ask()"> ask prompt</button>
+</body>
+
+</html>
+<script>
+  let obj = {
+    name: 'david',
+    class: "js2"
+  }
+
+
+  obj.friends = ['mikel', 'tolu']
+
+  console.log(obj);
+
+
+  let myString = 'davido'
+  // console.log(myString.length - 1);
+
+  myString = myString.toUpperCase()
+  console.log(myString);
+
+
+
+  console.log(myString.substring(2, 20));
+  let newWord = 'java+ scr +ipt'
+
+  newWord.substring(3, 7)
+
+  newWord = newWord.split('+')
+  console.log(newWord);
+
+
+  let string = '   30 Days Of JavaScript , the Days are easy  '
+  console.log(string.trim());
+  console.log(string);
+
+
+
+  console.log(string.includes('J'));
+
+  string = string.replaceAll('Days', 'Months').trim()
+  console.log(string);
+
+  console.log(string.charAt(20));
+
+
+  console.log(string.indexOf('Months'));
+
+
+  //   console.log(newString);
+
+
+
+
+  let input = document.getElementById('input')
+  let paragraph = document.getElementById('p')
+
+
+  function add() {
+    let inputValue = input.value
+    let arr = inputValue.split('+')
+    console.log(arr);
+    let ans = Number(arr[0]) + Number(arr[1])
+    paragraph.innerHTML = ans
+
+  }
+
+
+  let number = 10
+
+
+  number = number ** 5
+  number **= 5
+  // number += 5
+  console.log(number);
+
+  console.log(typeof number);
+
+  let val = 6 % 4
+  console.log(val);
+
+  let _5raised2 = 5 ** 2
+  console.log(_5raised2);
+
+
+  let one = 1
+  let num0ne = 1
+
+  console.log(one <= num0ne);
+
+
+  console.log(one > num0ne && num0ne >= one);
+
+  // alert('hello class')
+
+
+  function ask() {
+    let confirmer = window.confirm('are you sure you want a prompt?')
+    console.log(confirmer);
+
+    if (confirmer) {
+      let myPrompt = prompt('what is your name', 'enter name here')
+      console.log(myPrompt);
+      alert(`hello ${myPrompt} `)
+
+    } else {
+
+      alert('you didnt confirm');
+    }
+
+
+  }
+
+
+
+  const rectangle = {
+    length: 20,
+    width: 20,
+    area: function () {
+      return this.length * this.width
+    }
+
+  }
+
+  const Shape = function (lenght, width) {
+    this.lenght = lenght,
+      this.width = width,
+      this.area = () => {
+        return this.lenght * this.width
+      }
+  }
+
+  let circle = new Shape(45, 20)
+  console.log(circle);
+
+  console.log(circle.area());
+
+
+  let octagon = new Shape(12, 5)
+
+  console.log(octagon.area());
+
+
+  class Person {
+    constructor(name, age , gun) {
+      this.name = name,
+        this.age = age,
+        this.gun = gun
+
+    }
+
+    shout = () => {
+      console.log(`i am shouting ${this.name}`);
+    }
+
+    shoot = () =>  {
+      console.log( ` im shooting ${this.gun} x3`);
+    }
+
+
+
+  }
+
+  let awwal = new Person('Awwal', '45' , 'ak')
+  console.log(awwal.shout());
+  let victor = new Person('victor', '29' , 'shotgun')
+  console.log(victor.shout());
+  console.log(victor.shoot());
+
+
+
+  class Dancers extends Person {
+    constructor(name, age, gun , waist) {
+        super(name , age , gun)
+        this.waist = waist
+    }
+
+    shoot = () => {
+      console.log( ` im shooting ${this.gun} x5`);
+    }
+    dance = () => {
+      console.log( `${this.name} is dancing`);
+    }
+
+
+  }
+
+  let samuel = new Dancers('samuel' , 28 , 'sniper'  , 54 )
+
+  console.log(samuel.shout());
+  console.log(  samuel.dance());
+  console.log(samuel.shoot());
+
+
+
+
+  // console.log(rectangle.area());
+  // square.area()
+
+
+  // rectangle.length
+  // console.log(rectangle['length']);
+
+
+
+
+
+</script>
