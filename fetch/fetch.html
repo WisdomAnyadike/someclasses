@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            height: fit-content;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: space-between;
+
+        }
+
+        .each {
+            border: 1px solid black;
+            width: 100px;
+            height: fit-content;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+
+
+
+
+    </div>
+
+
+</body>
+
+</html>
+<script>
+
+
+    // fetch('https://dummyjson.com/products').then((res)=> res.json()).then((data)=> console.log(data.products)).catch((error)=> console.log(error))
+    let myProducts = JSON.parse(localStorage.getItem('products')) || []
+
+    let container = document.getElementById('container')
+    let fetchProducts = async () => {
+        try {
+            const response = await fetch('https://dummyjson.com/products')
+            const data = await response.json()
+
+            if (data) {
+                let products = data.products
+                console.log(products);
+                localStorage.setItem('products', JSON.stringify(products))
+                container.innerHTML = ''
+                products.map((pro, i) => {
+                    container.innerHTML += ` <button  onclick='seemore(${i + 1})' class="each"> 
+               <img width='50px' height='50px' src='${pro.images[0]}' /> 
+            <small> ${pro.title} </small>
+            <i> N${pro.price} </i>
+                </button>`
+                })
+            } else {
+                console.log('couldnt get data');
+            }
+
+
+
+        } catch (error) {
+            console.log(error);
+        }
+
+
+    }
+
+    fetchProducts()
+
+    function seemore(params) {
+        fetch(`https://dummyjson.com/products/${params}`).then((res) => res.json()).then((data) => {
+            console.log(data)
+            container.innerHTML = ''
+            container.innerHTML = `<div> 
+            <button onclick='fetchProducts()'> previous </button>
+                <p> ${data.price} </p>
+                <p> ${data.description} </p>
+                <p> ${data.title} </p>
+                <p> ${data.rating} </p>
+                <img width='200px' height='200px' src='${data.images[0]}' />
+                
+                
+                
+                
+                
+                
+                
+                </div>`
+
+
+
+
+
+        })
+            .catch((error) => console.log(error))
+    }
+
+
+
+
+
+
+
+
+
+
+</script>
