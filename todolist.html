@@ -8,9 +8,9 @@
 </head>
 
 <body>
-    <input class="hello" type="file" id="picPicker" onchange="pickPicture(event)">
+    <!-- <input class="hello" type="file" id="picPicker" onchange="pickPicture(event)">
     <img id="image" alt="">
-    <button id="button1"> click me </button>
+    <button id="button1"> click me </button> -->
 
     <div id="one">
         <input id="input" type="text"> <button onclick="add()"> add </button>
@@ -24,10 +24,10 @@
 
     </div>
 
-    <input id="searchInput" type="search" oninput="searcher()">
+    <!-- <input id="searchInput" type="search" oninput="searcher()">
     <div id="showProducts">
 
-    </div>
+    </div> -->
 
 </body>
 
@@ -53,9 +53,9 @@
     }
 
 
-    button1.addEventListener('click', () => {
-        console.log('hello');
-    })
+    // button1.addEventListener('click', () => {
+    //     console.log('hello');
+    // })
 
 
     let textsArr = []
@@ -105,33 +105,33 @@
 
    
 
-    function searcher() {
-        let filteredProducts = database.filter((product) => { return product.startsWith(searchInput.value) })
-        console.log(filteredProducts);
-        showProducts.innerHTML = ''
-        if (filteredProducts.length == 0) {
-            showProducts.innerHTML = 'product does not exist'
-        } else {
-          display(filteredProducts)
-        }
+    // function searcher() {
+    //     let filteredProducts = database.filter((product) => { return product.startsWith(searchInput.value) })
+    //     console.log(filteredProducts);
+    //     showProducts.innerHTML = ''
+    //     if (filteredProducts.length == 0) {
+    //         showProducts.innerHTML = 'product does not exist'
+    //     } else {
+    //       display(filteredProducts)
+    //     }
 
-    }
-
-
-    function display(params) {
-        params.forEach((product) => {
-        showProducts.innerHTML += `<p>${product} </p>`
-
-    })
-    }
+    // }
 
 
-  function add( first , second) {
-     return first + second
-  }
+    // function display(params) {
+    //     params.forEach((product) => {
+    //     showProducts.innerHTML += `<p>${product} </p>`
 
-  console.log( add(5 , 7));
-  console.log(add(24 , 4));
+    // })
+    // }
+
+
+//   function add( first , second) {
+//      return first + second
+//   }
+
+//   console.log( add(5 , 7));
+//   console.log(add(24 , 4));
  
   
 

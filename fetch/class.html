@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="input1"> name </label>
+    <input id="input1" type="text">
+    <label for="input2"> price </label>
+    <input id="input2" type="number">
+    <label for="input3"> rating </label>
+    <input id="input3" type="number">
+    <button onclick="addHello()"> click me </button>
+
+
+    <p>for editing</p>
+    <label for="input4"> name </label>
+    <input id="input4" type="text">
+    <label for="input5"> price </label>
+    <input id="input5" type="number">
+    <label for="input6"> rating </label>
+    <input id="input6" type="number">
+    
+
+
+    <div id="container">
+
+    </div>
+
+</body>
+
+</html>
+<script>
+
+    function addHello() {
+        fetch('http://localhost:3000/products', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: input1.value, price: input2.value, rating: input3.value })
+        }).then(res => res.json()).then(data => console.log('data sent successfully ')).catch((error) => console.log(error))
+
+    }
+
+
+
+
+
+    fetch('http://localhost:3000/products').then(res => res.json()).then(data => {
+        console.log(data);
+        data.map((product , i) => {
+            container.innerHTML += `<div> <p>${product.name} </p>
+    <p>${product.price} </p> 
+    <p>${product.rating} </p> 
+    <button onclick="updatePost('${product.id}')">  edit </button> 
+    <button onclick="deletePost('${product.id}')">  delete </button> 
+    </div>`
+        })
+
+    }
+    ).catch((error) => console.log(error))
+
+
+    function updatePost(id) {
+     
+        fetch(`http://localhost:3000/products/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: input4.value, price:input5.value , rating:input6.value})
+        }).then(res => res.json()).then(data => console.log('data updated successfully ')).catch((error) => console.log(error))
+
+    }
+
+    function deletePost(id) {
+     
+     fetch(`http://localhost:3000/products/${id}`, {
+         method: "DELETE"
+     }).then(res => res.json()).then(data => console.log('data updated successfully ')).catch((error) => console.log(error))
+
+ }
+
+ fetch(`http://localhost:3000/products/?price=${encodeURIComponent(1234)}`).then(res => res.json()).then(data => console.log(data)).catch((error) => console.log(error))
+
+
+
+
+
+</script>

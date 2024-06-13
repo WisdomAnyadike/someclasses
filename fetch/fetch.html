@@ -80,16 +80,18 @@
     fetchProducts()
 
     function seemore(params) {
-        fetch(`https://dummyjson.com/products/${params}`).then((res) => res.json()).then((data) => {
-            console.log(data)
-            container.innerHTML = ''
-            container.innerHTML = `<div> 
-            <button onclick='fetchProducts()'> previous </button>
-                <p> ${data.price} </p>
-                <p> ${data.description} </p>
-                <p> ${data.title} </p>
-                <p> ${data.rating} </p>
-                <img width='200px' height='200px' src='${data.images[0]}' />
+        window.location.href = 'seemore.html'
+        localStorage.setItem('fetchIndex' , params )
+        // fetch(`https://dummyjson.com/products/${params}`).then((res) => res.json()).then((data) => {
+        //     console.log(data)
+            // container.innerHTML = ''
+            // container.innerHTML = `<div> 
+            // <button onclick='fetchProducts()'> previous </button>
+            //     <p> ${data.price} </p>
+            //     <p> ${data.description} </p>
+            //     <p> ${data.title} </p>
+            //     <p> ${data.rating} </p>
+            //     <img width='200px' height='200px' src='${data.images[0]}' />
                 
                 
                 
@@ -97,20 +99,33 @@
                 
                 
                 
-                </div>`
+        //         </div>`
 
 
 
 
 
-        })
-            .catch((error) => console.log(error))
+        // })
+        //     .catch((error) => console.log(error))
     }
 
 
 
 
+// let obj = {
+//     name:'hi',
+//     class:"java"
+// }
 
+// let arr = [4,4,5,6,7,7]
+
+// for (const vals in obj) {
+//     console.log(obj[vals]);
+// }
+
+// for (const num of arr) {
+//     console.log(num);
+// }
 
 
 
